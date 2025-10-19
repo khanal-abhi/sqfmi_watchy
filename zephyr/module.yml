@@ -1,0 +1,7 @@
+---
+name: sqfmi_watchy
+build:
+  cmake: .
+  kconfig: Kconfig
+  settings:
+    board_root: .

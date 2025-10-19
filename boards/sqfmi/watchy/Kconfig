@@ -1,0 +1,8 @@
+rsource "Kconfig.watchy"
+
+config HEAP_MEM_POOL_ADD_SIZE_BOARD
+	int
+	default 4096 if BOARD_WATCHY_ESP32S3_PROCPU
+	default 256 if BOARD_WATCHY_ESP32S3_APPCPU
+
+

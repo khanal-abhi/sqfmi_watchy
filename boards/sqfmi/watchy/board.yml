@@ -1,0 +1,6 @@
+board:
+  name: watchy
+  full_name: SQFMI_WATHCY
+  vendor: SQFMI
+  socs:
+  - name: esp32s3
