@@ -31,17 +31,6 @@
 
 	aliases {
 		uart-0 = &uart0;
-		sw0 = &button0;
-	};
-
-	buttons {
-		compatible = "gpio-keys";
-
-		button0: button_0 {
-			gpios = <&gpio0 0 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
-			label = "BOOT Button";
-			zephyr,code = <INPUT_KEY_0>;
-		};
 	};
 };
 
@@ -76,24 +65,8 @@
 	clock-frequency = <I2C_BITRATE_STANDARD>;
 	pinctrl-0 = <&i2c0_default>;
 	pinctrl-names = "default";
-};
-
-&i2c1 {
-	clock-frequency = <I2C_BITRATE_STANDARD>;
-	pinctrl-0 = <&i2c1_default>;
-	pinctrl-names = "default";
-};
-
-&i2s0 {
-	pinctrl-0 = <&i2s0_default>;
-	pinctrl-names = "default";
-	status = "disabled";
-};
-
-&i2s1 {
-	pinctrl-0 = <&i2s1_default>;
-	pinctrl-names = "default";
-	status = "disabled";
+	label = "bma423_bus";
+	status = "okay";
 };
 
 &spi2 {
@@ -102,19 +75,7 @@
 	status = "okay";
 	pinctrl-0 = <&spim2_default>;
 	pinctrl-names = "default";
-};
-
-&spi3 {
-	#address-cells = <1>;
-	#size-cells = <0>;
-	status = "okay";
-	pinctrl-0 = <&spim3_default>;
-	pinctrl-names = "default";
-};
-
-&twai {
-	pinctrl-0 = <&twai_default>;
-	pinctrl-names = "default";
+	label = "epaper_bus";
 };
 
 &timer0 {
@@ -174,4 +135,22 @@ zephyr_udc0: &usb_otg {
 
 &usb_serial {
 	status = "okay";
+};
+
+/{
+	buttons {
+		compatible = "gpio-keys";
+		btn_confirm {
+			gpios = <&gpio0 7 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+		};
+		btn_cancel {
+			gpios = <&gpio0 6 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+		};
+		btn_up {
+			gpios = <&gpio0 0 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+		};
+		btn_down {
+			gpios = <&gpio0 8 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+		};
+	};
 };
