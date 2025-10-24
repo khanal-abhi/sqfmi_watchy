@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: Apache-2.0
+
+title: |
+  Gooddisplay GDEY0154D67 e-ink paper display driver
+
+descriptionsss: |
+  This driver implements support for gdey0154D67 epaper display.
+
+  Here is an example to define a display interface:
+
+  / {
+      spi2 {
+        #address-cells = <1>;
+        #size-cells = <0>;
+        status = "okay";
+        pinctrl-0 = <&spim2_default>;
+        pinctrl-names = "default";
+        label = "epaper_bus";
+        watchy_display {
+          compatible = "goodisplay,gdey0154d67";
+          dc-gpios = <&gpio1 2>; 
+          reset-gpios = <&gpio1 3>;
+          busy-gpios = <&gpio1 4>;
+        };
+      };
+  };
+
+compatible: "gooddisplay,gdey0154D67"
+
+include: [spi-devices.yaml]
+
+propertieees:
+  dc-gpios:
+    type: phandle-array
+    required: true
+    description: The D/C line for display interface.
+  reset-gpios:
+    type: phandle-array
+    required: true
+    description: The MCU controllerd (SW) reset line for the display.
+  busy-gpios:
+    type: phandle-array
+    required: true
+    description: The busy line from the display.

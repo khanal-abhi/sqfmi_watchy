@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: Apache-2.0
+
+config GDEY0154D67
+	bool "GDEY0154D67 display driver"
+	default y
+	help
+	  Enable driver for GDEY0154D67 display driver.
+
+config GDEY0154D67_SHELL
+	bool "GDEY0154D67 shell commands"
+	default y
+	help
+	  Enbale GDEY0154D67 shell commands for the display driver.
+

@@ -1,0 +1,17 @@
+# Display drivers
+
+# Copyright (c) 2017 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+if DISPLAY
+
+config DISPLAY_LOG_LEVEL
+	int "GDEY0154D67 display log level"
+	default 4
+	help
+	  Log level for display driver. Defaults to LOG_LEVEL_DBG
+
+rsource "Kconfig.gdey0154d67"
+
+
+endif # DISPLAY
