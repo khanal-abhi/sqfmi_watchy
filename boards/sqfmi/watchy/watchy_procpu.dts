@@ -27,10 +27,36 @@
 		zephyr,flash = &flash0;
 		zephyr,code-partition = &slot0_partition;
 		zephyr,bt-hci = &esp32_bt_hci;
+		zephyr,display = &ssd16xx_display;
 	};
 
 	aliases {
 		uart-0 = &uart0;
+	};
+
+	mipi_dbi {
+		compatible = "zephyr,mipi-dbi-spi";
+		spi-dev = <&spi2>;
+		dc-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio1 3 GPIO_ACTIVE_LOW>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		ssd16xx_display: ssd16xxfb@0 {
+			compatible = "solomon,ssd1681";
+			label = "epaper_display";
+			mipi-max-frequency = <10000000>;
+			reg = <0>;
+			width = <200>;
+			height = <200>;
+			rotation=<270>;
+			busy-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
+
+			full {
+			};
+			partial {
+			};
+		};
 	};
 };
 
@@ -69,6 +95,12 @@
 	status = "okay";
 };
 
+&spim2_default {
+	group1 {
+		pinmux = <SPIM2_MOSI_GPIO48>, <SPIM2_SCLK_GPIO47>, <SPIM2_CSEL_GPIO33>;
+	};
+};
+
 &spi2 {
 	#address-cells = <1>;
 	#size-cells = <0>;
@@ -76,15 +108,7 @@
 	pinctrl-0 = <&spim2_default>;
 	pinctrl-names = "default";
 	label = "epaper_bus";
-	watchy_display: watchy_display@0 {
-		reg = <0>;
-		spi-max-frequency = <1000000>;
-		compatible = "gooddisplay,gdey0154d67";
-		dc-gpios = <&gpio1 2 GPIO_ACTIVE_LOW>; 
-		reset-gpios = <&gpio1 3 GPIO_ACTIVE_LOW>; 
-		busy-gpios = <&gpio1 4 GPIO_ACTIVE_LOW>;
-		status = "okay";
-	};
+    cs-gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;
 };
 
 &timer0 {
